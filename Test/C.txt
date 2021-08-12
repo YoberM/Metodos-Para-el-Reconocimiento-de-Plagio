@@ -1,0 +1,15 @@
+ import Levenshtein as lev 
+
+def tokenizar(archivo): 
+    palabras = [] 
+    with open(archivo) as fname: 
+        for linea in fname: 
+            palabras.extend(linea.split()) 
+    return palabras 
+
+def similitud_archivos(archivo1,archivo2): 
+    tokens1 = tokenizar(archivo1) 
+    tokens2 = tokenizar(archivo2) 
+    return sum( [ similitud_palabras(e[0],e[1]) for  e in zip(tokens1,tokens2) ])/(len(tokens1)) 
+
+print("Similitud entre los archivos = {:.2f}".format(similitud_archivos("codigo1.txt","codigo2.txt"))) 

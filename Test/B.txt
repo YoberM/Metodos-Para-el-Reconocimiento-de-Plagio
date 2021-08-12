@@ -1,0 +1,20 @@
+import Levenshtein as lev 
+
+def clavenizar(archivo): 
+    palabras = [] 
+    with open(archivo) as fname: 
+        for linea in fname: 
+            palabras.extend(linea.split()) 
+    return palabras 
+
+def similitud_palabras(palabra1,palabra2): 
+    dist = lev(palabra1,palabra2) 
+    tam = max(len(palabra1),len(palabra1)) 
+    return 1 - dist/tam 
+
+def similitud_archivos(archivo1,archivo2): 
+    clavens1 = clavenizar(archivo1) 
+    clavens2 = clavenizar(archivo2) 
+    return sum( [ similitud_palabras(e[0],e[1]) for  e in zip(clavens1,clavens2) ])/(len(clavens1)) 
+
+print("Similitud entre los archivos = {:.2f}".format(similitud_archivos("codigo1.txt","codigo2.txt"))) 
